@@ -12,22 +12,46 @@ const shopSlice = createSlice({
   initialState,
   reducers: {
     addToCart: (state, action) => {
-      if (state.cartItems.find((item) => item.id === action.payload.id)) {
-        return;
+      if (
+        state.cartItems.findIndex((item) => item.id === action.payload.id) > -1
+      ) {
+        const newState = state.cartItems.filter((item) => {
+          if (item.id === action.payload.id) {
+            const quantity = item.quantity;
+            if (quantity === 10) {
+              return item;
+            }
+            item.quantity = quantity + 1;
+            return item;
+          }
+          return item;
+        });
+        state.cartItems = newState;
       } else {
         state.cartItems.push({
           id: action.payload.id,
           title: action.payload.title,
           image: action.payload.image,
+          quantity: 1,
         });
       }
       localStorage.setItem("localItems", JSON.stringify(state.cartItems));
     },
 
     removeFromCart: (state, action) => {
-      state.cartItems = state.cartItems.filter(
-        (item) => item.id !== action.payload
-      );
+      const newState = state.cartItems.filter((item) => {
+        if (item.id === action.payload) {
+          const quantity = item.quantity;
+          if (quantity === 1) {
+            return;
+          }
+          item.quantity = quantity - 1;
+
+          return item;
+        }
+        return item;
+      });
+      state.cartItems = newState;
 
       localStorage.setItem("localItems", JSON.stringify(state.cartItems));
     },
