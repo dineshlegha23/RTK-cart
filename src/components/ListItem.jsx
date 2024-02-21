@@ -9,6 +9,16 @@ const ListItem = ({ image, title, id }) => {
   );
   const dispatch = useDispatch();
 
+  const handleAddToCart = () => {
+    if (isAdded) {
+      dispatch(removeFromCart(id));
+      setIsAdded(false);
+    } else {
+      dispatch(addToCart({ id, image, title }));
+      setIsAdded(true);
+    }
+  };
+
   return (
     <div className="min-w-[200px] h-[300px] items-center flex flex-col gap-5 border-[1px] border-black rounded-lg overflow-hidden p-4">
       <div className="min-h-[150px] max-h-[150px]">
