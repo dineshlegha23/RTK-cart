@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { addToCart, removeFromCart } from "../store/shopSlice";
 
-const ListItem = ({ image, title, id }) => {
+const ListItem = ({ image, title, id, price }) => {
   const { cartItems } = useSelector((store) => store.shop);
   let quantity = 0;
 
@@ -19,7 +19,7 @@ const ListItem = ({ image, title, id }) => {
   const dispatch = useDispatch();
 
   const handleAddToCart = () => {
-    dispatch(addToCart({ id, image, title }));
+    dispatch(addToCart({ id, image, title, price }));
     setIsAdded(true);
   };
 
@@ -28,14 +28,15 @@ const ListItem = ({ image, title, id }) => {
   };
 
   return (
-    <div className="min-w-[200px] h-[300px] items-center flex flex-col gap-5 border-[1px] border-black rounded-lg overflow-hidden p-4">
+    <div className="min-w-[200px] h-[300px] items-center flex flex-col gap-3 border-[1px] border-black rounded-lg overflow-hidden p-4">
       <div className="min-h-[150px] max-h-[150px]">
         <img
-          className="w-[100px] min-h-[150px] max-h-[200px]"
+          className="w-[100px] min-h-[150px] max-h-[150px]"
           src={image}
           alt={title}
         />
       </div>
+      <p className="mb-[-5px]">Price: ${price}</p>
       <p className="whitespace-nowrap font-semibold">
         {title.length > 17 ? title.slice(0, 18) + "..." : title}
       </p>

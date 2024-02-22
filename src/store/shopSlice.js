@@ -32,6 +32,7 @@ const shopSlice = createSlice({
           id: action.payload.id,
           title: action.payload.title,
           image: action.payload.image,
+          price: action.payload.price,
           quantity: 1,
         });
       }

@@ -9,8 +9,8 @@ const Navbar = () => {
       <Link className="text-red-600 hover:text-red-400" to="/">
         HOME
       </Link>
-      <Link className="text-red-600 hover:text-red-400" to="/favourites">
-        FAVOURITES-{cartItems.length}
+      <Link className="text-red-600 hover:text-red-400" to="/cart">
+        Cart({cartItems.length})
       </Link>
     </div>
   );
